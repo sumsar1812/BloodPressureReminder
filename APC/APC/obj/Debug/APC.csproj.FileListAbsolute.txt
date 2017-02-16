@@ -1,4 +1,5 @@
 C:\Users\Rasmus\Documents\Visual Studio 2015\Projects\APC\APC\bin\Debug\APC.exe.config
+<<<<<<< HEAD
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\APC.exe.config
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\APC.exe
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\APC.pdb
@@ -15,3 +16,19 @@ D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.Properties.Resources.resou
 D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.csproj.GenerateResource.Cache
 D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.exe
 D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.pdb
+=======
+C:\Git\BloodPressureReminder\APC\APC\bin\Debug\APC.exe.config
+C:\Git\BloodPressureReminder\APC\APC\bin\Debug\APC.exe
+C:\Git\BloodPressureReminder\APC\APC\bin\Debug\APC.pdb
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.csprojResolveAssemblyReference.cache
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\MainWindow.g.cs
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\App.g.cs
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC_MarkupCompile.cache
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC_MarkupCompile.lref
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\MainWindow.baml
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.g.resources
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.Properties.Resources.resources
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.csproj.GenerateResource.Cache
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.exe
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.pdb
+>>>>>>> origin/master
