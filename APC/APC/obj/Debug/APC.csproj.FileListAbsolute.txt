@@ -32,3 +32,7 @@ C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.csproj.GenerateResource.Cache
 C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.exe
 C:\Git\BloodPressureReminder\APC\APC\obj\Debug\APC.pdb
 >>>>>>> origin/master
+C:\Git\BloodPressureReminder\APC\APC\bin\Debug\Newtonsoft.Json.dll
+C:\Git\BloodPressureReminder\APC\APC\bin\Debug\Newtonsoft.Json.xml
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\WelcomeToTheSystem.g.cs
+C:\Git\BloodPressureReminder\APC\APC\obj\Debug\WelcomeToTheSystem.baml

@@ -4,26 +4,17 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
-D:\github\BloodPressureReminder\APC\APC\obj\Debug\
-=======
 C:\Git\BloodPressureReminder\APC\APC\obj\Debug\
->>>>>>> origin/master
 APC
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
-D:\github\BloodPressureReminder\APC\APC\App.xaml
-21276000953
-=======
 C:\Git\BloodPressureReminder\APC\APC\App.xaml
-11151548125
->>>>>>> origin/master
+21276000953
 
-11-1006942067
-13738642453
+112143154044
+14-737909350
 MainWindow.xaml;WelcomeToTheSystem.xaml;
 
-True
+False
 

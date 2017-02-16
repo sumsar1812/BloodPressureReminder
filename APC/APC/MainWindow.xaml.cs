@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,16 +26,34 @@ namespace APC
         private DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.SystemIdle);
         public MainWindow()
         {
-            timer.Tick += new EventHandler(OnUpdateTimerTick);
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
-            timer.Start();
-
             InitializeComponent();
-            label1.Content = DateTime.Now.ToString("hh:mm:ss tt");
+            string path = @"C:\Users\Public\BloodpreasureUser.txt";
+            if (!File.Exists(path))
+            {
+                new WelcomeToTheSystem().Show();
+                Hide();
+            }
+            else
+            {
+                loadUsers(path);
+                label1.Content = DateTime.Now.ToString("hh:mm:ss tt");
+                timer.Tick += new EventHandler(OnUpdateTimerTick);
+                timer.Interval = TimeSpan.FromMilliseconds(1000);
+                timer.Start();
+            }
+
+            
+
         }
         private void OnUpdateTimerTick(object sender, EventArgs e)
         {
             label1.Content = DateTime.Now.ToString("hh:mm:ss tt");
+        }
+
+        private void loadUsers(string path)
+        {
+            string text = System.IO.File.ReadAllText(path);
+
         }
     }
 }
