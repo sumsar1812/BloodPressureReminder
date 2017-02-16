@@ -5,9 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APC"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" WindowStyle="None" ResizeMode="NoResize"  
+    WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
-        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="210,109,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.908,0.462"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="480*"/>
+            <ColumnDefinition Width="28*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="107*"/>
+            <RowDefinition Height="137*"/>
+            <RowDefinition Height="106*"/>
+        </Grid.RowDefinitions>
+        <Label HorizontalContentAlignment="Center" x:Name="label1" Content="00:00:00" Cursor="Arrow" Background="White" FontSize="300" FontFamily="Sitka Display" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,7,0" Grid.Row="1"/>
 
     </Grid>
 </Window>

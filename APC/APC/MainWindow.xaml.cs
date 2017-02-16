@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace APC
 {
@@ -21,10 +22,19 @@ namespace APC
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Timer timer;
+        private DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.SystemIdle);
         public MainWindow()
         {
+            timer.Tick += new EventHandler(OnUpdateTimerTick);
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Start();
+
             InitializeComponent();
+            label1.Content = DateTime.Now.ToString("hh:mm:ss tt");
+        }
+        private void OnUpdateTimerTick(object sender, EventArgs e)
+        {
+            label1.Content = DateTime.Now.ToString("hh:mm:ss tt");
         }
     }
 }
