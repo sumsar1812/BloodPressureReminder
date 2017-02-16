@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Rasmus\Documents\Visual Studio 2015\Projects\APC\APC\obj\Debug\
+D:\github\BloodPressureReminder\APC\APC\obj\Debug\
 APC
 none
 false
 DEBUG;TRACE
-C:\Users\Rasmus\Documents\Visual Studio 2015\Projects\APC\APC\App.xaml
-11151548125
+D:\github\BloodPressureReminder\APC\APC\App.xaml
+21276000953
 
-9-87446447
+11-1006942067
 13738642453
-MainWindow.xaml;
+MainWindow.xaml;WelcomeToTheSystem.xaml;
 
 False
 
