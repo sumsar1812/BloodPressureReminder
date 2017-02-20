@@ -14,15 +14,17 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="174*"/>
-            <RowDefinition Height="143*"/>
-            <RowDefinition Height="98*"/>
-            <RowDefinition Height="120*"/>
+            <RowDefinition Height="142*"/>
+            <RowDefinition Height="66*"/>
+            <RowDefinition Height="141*"/>
+            <RowDefinition Height="13*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="button" Content="Opsæt!" Margin="10.571,13.429,10.429,0" Grid.Row="2" Grid.Column="1" Click="button_Click" Height="46" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbxName" HorizontalAlignment="Left"  Height="35" Margin="108.571,24.286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="217" Grid.Row="1" Grid.Column="1" TextChanged="textBox_TextChanged"/>
-        <Label x:Name="label" Content="Navn" HorizontalAlignment="Left" Margin="10.571,24.286,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
-        <Label x:Name="label_Copy" Content="Fødselsdato" Margin="10.571,85.286,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.416,0.821" Grid.Column="1" HorizontalAlignment="Left" Width="78"/>
-        <DatePicker Margin="108.571,85.286,0,21.571" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="217"/>
-        <Image x:Name="image" HorizontalAlignment="Center" Height="142"  VerticalAlignment="Center" Source="IMAGE/473577580.jpg" Grid.Column="1" Grid.Row="0" Margin="95.571,16,95.429,15.714"/>
+        <Button x:Name="button" Content="Opsæt!" Margin="10.8,12.8,10.2,0" Grid.Row="2" Grid.Column="1" Click="button_Click" Height="46" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxName"  Height="35" Margin="108.8,24.4,10.2,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" TextChanged="textBox_TextChanged"/>
+        <Label x:Name="label" Content="Navn" HorizontalAlignment="Left" Margin="10.8,24.4,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Height="26" Width="38"/>
+        <Label x:Name="label_Copy" Content="Fødselsdato" Margin="10.8,85.4,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.416,0.821" Grid.Column="1" HorizontalAlignment="Left" Width="78" Height="26"/>
+        <DatePicker x:Name="DateP" Margin="108.8,85.4,10.2,22.2" Grid.Row="1" Grid.Column="1"/>
+        <Image x:Name="image" HorizontalAlignment="Center" Source="IMAGE/doctorsLikeMoney.png" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" Margin="1,-1,75.2,0.6" Height="174" Width="186" ToolTip="I like Money"/>
+        <TextBlock x:Name="Speech"   Grid.Row="3" Text="BLABLABALBALA test" FontFamily="Tahoma" FontSize="20" Foreground="#FF880909" FontWeight="Bold" Margin="0.8,25.4,0.2,0.4" TextWrapping="Wrap" Grid.Column="1" />
     </Grid>
 </Window>

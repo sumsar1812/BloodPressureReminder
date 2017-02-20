@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APC"
         mc:Ignorable="d"
-        Title="BloodPresure" Height="359.356" Width="647.853">
+        WindowStyle="None" ResizeMode="NoResize"  
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*"/>
@@ -17,5 +18,6 @@
             <RowDefinition Height="283*"/>
             <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="207.4,196.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="429" Grid.Column="1" FontSize="48"/>
     </Grid>
 </Window>

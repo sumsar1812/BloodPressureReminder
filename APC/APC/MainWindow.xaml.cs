@@ -39,7 +39,7 @@ namespace APC
                 
             
             //loadUsers(path);
-            tid.Text = DateTime.Now.ToString("hh:mm");      
+            tid.Text = DateTime.Now.ToString("HH:mm");      
             timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Tick += OnUpdateTimerTick;
             timer.Start();
@@ -50,14 +50,64 @@ namespace APC
     }
         private void OnUpdateTimerTick(object sender, EventArgs e)
         {
-            tid.Text = DateTime.Now.ToString("hh:mm");
-            dato.Text = DateTime.Now.ToString("dddd") + " - " + DateTime.Now.ToString("dd/MM");
+            DateTime TimeRN = DateTime.Now;
+            tid.Text = TimeRN.ToString("HH:mm");
+            dato.Text = TimeRN.ToString("dddd") + " d." + TimeRN.ToString("dd") + "/" + TimeRN.ToString("MM");
+            CheckForEvents(TimeRN);
         }
 
         private void loadUsers(string path)
         {
             string text = System.IO.File.ReadAllText(path);
 
+        }
+
+        private void CheckForEvents(DateTime time)
+        {
+            string timeRN = time.ToString("HH:mm:ss");
+            switch (timeRN)
+            {
+                case "06:00:00":
+                    { 
+                    MorningEvent();
+                    break;
+                    }
+                case "18:00:00":
+                    {
+                        EveningEvent();
+                        break;
+                    }
+                case "00:00:00":
+                    {
+                        EasterEgg.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "00:01:00":
+                {
+                    EasterEgg.Visibility = Visibility.Hidden;
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        private void MorningEvent()
+        {
+            BloodPresure BPWindow = new BloodPresure();
+            BPWindow.ShowDialog();
+        }
+        private void EveningEvent()
+        {
+            BloodPresure BPWindow = new BloodPresure();
+            BPWindow.ShowDialog();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            MorningEvent();
         }
     }
 }
