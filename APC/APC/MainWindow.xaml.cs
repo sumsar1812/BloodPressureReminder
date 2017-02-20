@@ -23,31 +23,35 @@ namespace APC
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.SystemIdle);
+        private DispatcherTimer timer = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
+            GlobalVarOfThemAll.path = @"C:\Users\Public\BloodpreasureUser.txt";
             string path = @"C:\Users\Public\BloodpreasureUser.txt";
             if (!File.Exists(path))
             {
                 new WelcomeToTheSystem().Show();
                 Hide();
             }
-            else
-            {
-                loadUsers(path);
-                label1.Content = DateTime.Now.ToString("hh:mm:ss tt");
-                timer.Tick += new EventHandler(OnUpdateTimerTick);
-                timer.Interval = TimeSpan.FromMilliseconds(1000);
-                timer.Start();
-            }
 
+
+                
             
+            //loadUsers(path);
+            tid.Text = DateTime.Now.ToString("hh:mm");      
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Tick += OnUpdateTimerTick;
+            timer.Start();
 
-        }
+
+
+
+    }
         private void OnUpdateTimerTick(object sender, EventArgs e)
         {
-            label1.Content = DateTime.Now.ToString("hh:mm:ss tt");
+            tid.Text = DateTime.Now.ToString("hh:mm");
+            dato.Text = DateTime.Now.ToString("dddd") + " - " + DateTime.Now.ToString("dd/MM");
         }
 
         private void loadUsers(string path)

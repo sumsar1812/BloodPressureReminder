@@ -13,15 +13,16 @@
             <ColumnDefinition Width="57*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="174*"/>
             <RowDefinition Height="143*"/>
-            <RowDefinition Height="199*"/>
-            <RowDefinition Height="99*"/>
+            <RowDefinition Height="98*"/>
+            <RowDefinition Height="120*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="button" Content="Okay" HorizontalAlignment="Left" Margin="113.348,169.6,0,0" VerticalAlignment="Top" Width="75" Grid.Row="1" Grid.Column="1" Click="button_Click"/>
-        <TextBox x:Name="tbxName" HorizontalAlignment="Left" Height="23" Margin="113.348,20.6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Row="1" Grid.Column="1" TextChanged="textBox_TextChanged"/>
-        <Label x:Name="label" Content="Name" HorizontalAlignment="Left" Margin="10.348,20.6,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
-        <Label x:Name="label_Copy" Content="fødselsdag" HorizontalAlignment="Left" Margin="10.348,62.6,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
-        <DatePicker HorizontalAlignment="Left" Margin="113.348,64.6,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
-        <Image x:Name="image" HorizontalAlignment="Center" Height="142"  VerticalAlignment="Center" Source="IMAGE/473577580.jpg" Grid.Column="1" Grid.Row="0"/>
+        <Button x:Name="button" Content="Opsæt!" Margin="10.571,13.429,10.429,0" Grid.Row="2" Grid.Column="1" Click="button_Click" Height="46" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxName" HorizontalAlignment="Left"  Height="35" Margin="108.571,24.286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="217" Grid.Row="1" Grid.Column="1" TextChanged="textBox_TextChanged"/>
+        <Label x:Name="label" Content="Navn" HorizontalAlignment="Left" Margin="10.571,24.286,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
+        <Label x:Name="label_Copy" Content="Fødselsdato" Margin="10.571,85.286,0,0" VerticalAlignment="Top" Grid.Row="1" RenderTransformOrigin="0.416,0.821" Grid.Column="1" HorizontalAlignment="Left" Width="78"/>
+        <DatePicker Margin="108.571,85.286,0,21.571" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Width="217"/>
+        <Image x:Name="image" HorizontalAlignment="Center" Height="142"  VerticalAlignment="Center" Source="IMAGE/473577580.jpg" Grid.Column="1" Grid.Row="0" Margin="95.571,16,95.429,15.714"/>
     </Grid>
 </Window>

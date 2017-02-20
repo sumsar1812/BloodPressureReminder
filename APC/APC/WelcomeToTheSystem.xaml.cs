@@ -33,7 +33,14 @@ namespace APC
         {
             if(!string.IsNullOrWhiteSpace(tbxName.Text))
             {
-                
+                System.IO.StreamWriter file = new System.IO.StreamWriter(GlobalVarOfThemAll.path);
+                file.WriteLine(tbxName.Text);
+                file.Close();
+                MainWindow timeWindow = new MainWindow();
+                App.Current.MainWindow = timeWindow;
+                this.Close();
+                timeWindow.Show();
+
             }
             else
             {
