@@ -9,15 +9,20 @@
         WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="593*"/>
-            <ColumnDefinition Width="24*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="118*"/>
+            <ColumnDefinition Width="473*"/>
+            <ColumnDefinition Width="118*"/>
+            <ColumnDefinition Width="29*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="283*"/>
-            <RowDefinition Height="25*"/>
+            <RowDefinition Height="102*"/>
+            <RowDefinition Height="308*"/>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="42*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="207.4,196.8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="429" Grid.Column="1" FontSize="48"/>
+        <Label x:Name="TimerStatusBox" Content="05:00" Grid.Column="1" HorizontalAlignment="Left" Margin="10.6,0,0,5.4" FontSize="72" FontFamily="Haettenschweiler" Width="406" Height="87" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="Speech"   Grid.Row="2" Text="" FontFamily="Tahoma" FontSize="20" Foreground="#FF880909" FontWeight="Bold" Margin="0.2,0,0.2,10.2" TextWrapping="Wrap" Grid.Column="2" Grid.RowSpan="2" Height="105" VerticalAlignment="Bottom" />
+
     </Grid>
 </Window>

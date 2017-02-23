@@ -96,13 +96,19 @@ namespace APC
 
         private void MorningEvent()
         {
+            if(true) //check here that pressure Sensor is activated. IF activated start Bloodpressure Window
+            { 
             BloodPresure BPWindow = new BloodPresure();
             BPWindow.ShowDialog();
+            }
         }
         private void EveningEvent()
         {
+            if (true)
+            { 
             BloodPresure BPWindow = new BloodPresure();
             BPWindow.ShowDialog();
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
