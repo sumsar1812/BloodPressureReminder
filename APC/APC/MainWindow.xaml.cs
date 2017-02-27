@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -15,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Phidgets;
+using Phidgets.Events;
 
 namespace APC
 {
@@ -23,10 +27,21 @@ namespace APC
     /// </summary>
     public partial class MainWindow : Window
     {
+        InterfaceKit analog;
+        public SpeechSynthesizer synthesizer;
         private DispatcherTimer timer = new DispatcherTimer();
+        private Boolean warning;
         public MainWindow()
         {
             InitializeComponent();
+            warning = false;
+            analog = new InterfaceKit();
+            synthesizer = new SpeechSynthesizer();
+            synthesizer.SetOutputToDefaultAudioDevice();
+
+            Debug.WriteLine("Waiting for Sensor to be attached....");
+            analog.open("phidgetsbc");
+
             GlobalVarOfThemAll.path = @"C:\Users\Public\BloodpreasureUser.txt";
             string path = @"C:\Users\Public\BloodpreasureUser.txt";
             if (!File.Exists(path))
@@ -95,25 +110,59 @@ namespace APC
         }
 
         private void MorningEvent()
-        {
-            if(true) //check here that pressure Sensor is activated. IF activated start Bloodpressure Window
-            { 
-            BloodPresure BPWindow = new BloodPresure();
-            BPWindow.ShowDialog();
+        {            
+            while (analog.sensors[0].Value < 10)
+            {
+                Debug.WriteLine("Please press");
+                Debug.WriteLine(analog.sensors[1].Value);
+
+                if (analog.sensors[1].Value < 100)
+                {
+                    if (!warning)
+                    { 
+                        speak(Name + ", you forgot to meassure your bloodpressure! please go back and put on the cuff");
+                    }
+                    warning = true;
+                }
             }
+
+                BloodPresure BPWindow = new BloodPresure();
+                BPWindow.ShowDialog();               
         }
         private void EveningEvent()
         {
-            if (true)
-            { 
+
+
+
+
+
+            while (analog.sensors[0].Value < 10)
+            {
+                Debug.WriteLine("Please press");
+                Debug.WriteLine(analog.sensors[1].Value);
+
+                if (analog.sensors[1].Value < 100)
+                {
+                    if (!warning)
+                    {
+                        speak(Name + ", you forgot to meassure your bloodpressure! please go back and put on the cuff");
+                    }
+                    warning = true;
+                }
+            }
+
             BloodPresure BPWindow = new BloodPresure();
             BPWindow.ShowDialog();
-            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
             MorningEvent();
+        }
+
+        private void speak(string Text)
+        {
+            synthesizer.SpeakAsync(Text);
         }
     }
 }

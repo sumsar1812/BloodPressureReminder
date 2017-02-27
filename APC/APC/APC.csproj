@@ -43,6 +43,10 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Phidget21.NET, Version=2.1.8.243, Culture=neutral, PublicKeyToken=c2b1f2a3594bce52, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Phidgets\Phidget21.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Speech" />
@@ -58,6 +62,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.14\lib\net\WpfAnimatedGif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -128,6 +136,10 @@
     <Content Include="ieee11073\IEEE11073Parser.dll" />
     <Content Include="ieeediscover\ieee11073hub_discover.exe" />
     <Content Include="ieeediscover\Interop.Bonjour.dll" />
+    <Resource Include="IMAGE\waterFall.gif" />
+    <Resource Include="IMAGE\cuffOff.gif" />
+    <Resource Include="IMAGE\cuffOn.gif" />
+    <Content Include="IMAGE\song.mp3" />
     <Resource Include="IMAGE\doctorsLikeMoney.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

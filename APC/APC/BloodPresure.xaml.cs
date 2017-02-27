@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using IEEE11073Parser;
 using System.Windows.Threading;
 using System.Speech.Synthesis;
+using System.Threading;
 
 namespace APC
 {
@@ -31,23 +32,28 @@ namespace APC
         public SpeechSynthesizer synthesizer;
         private STATE Status_State;
         private STATE prevStatus_State;
+        private MediaPlayer mediaPlayer;
+        private int SpeakTimeDelay = 6000;
+
+        private static bool GotMesurement = false;
+        string[] settings = new string[] { "192.168.0.100", "9005" };
 
         public BloodPresure()
         {
             InitializeComponent();
+            InstructionImage.Source = new BitmapImage(new Uri(,));
             Status_State = STATE.START;
             synthesizer = new SpeechSynthesizer();
             synthesizer.SetOutputToDefaultAudioDevice();
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new Uri("song.mp3",UriKind.Relative));
             timer = new DispatcherTimer();
-            string[] settings = new string[] { "192.168.1.123", "9005" };
-            //Start the IEEE11083 driver as a facade controller
-            var facade = new IEEE11073ParserFacade();
-            facade.NewIEEE11073Measurement += NewMeasurementEvent;
+
             TimerSeconds = 20;
-            facade.StartIEEE11073Parser(settings);
             timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Tick += OnUpdateTimerTick;
             timer.Start();
+            mediaPlayer.Play();
         }
 
         private void OnUpdateTimerTick(object sender, EventArgs e)
@@ -109,7 +115,10 @@ namespace APC
                 case STATE.START:
                     {
                         TimerStatusBox.Content = "Messurment Time";
+                        mediaPlayer.Pause();
                         speak("Put on thing, and perform first messurement");
+                        Thread.Sleep(SpeakTimeDelay);
+                        mediaPlayer.Play();
                         prevStatus_State = Status_State;
                         Status_State = STATE.MEASSUREMENT1;
                         break;
@@ -117,7 +126,10 @@ namespace APC
                 case STATE.MEASSUREMENT1:
                     {
                         TimerStatusBox.Content = "Messurment Time";
+                        mediaPlayer.Pause();
                         speak("Put on thing, and perform second messurement");
+                        Thread.Sleep(SpeakTimeDelay);
+                        mediaPlayer.Play();
                         prevStatus_State = Status_State;
                         Status_State = STATE.MEASSUREMENT2;
                         break;
@@ -125,7 +137,10 @@ namespace APC
                 case STATE.MEASSUREMENT2:
                     {
                         TimerStatusBox.Content = "Messurment Time";
+                        mediaPlayer.Pause();
                         speak("Put on thing, and perform third messurement");
+                        Thread.Sleep(SpeakTimeDelay);
+                        mediaPlayer.Play();
                         prevStatus_State = Status_State;
                         Status_State = STATE.MEASSUREMENT3;
                         break;
@@ -143,32 +158,74 @@ namespace APC
         }
         private void state_meassurement1_timerevent()
         {
+            mediaPlayer.Play();
+            var facade = new IEEE11073ParserFacade();
+            facade.NewIEEE11073Measurement += NewMeasurementEvent;
+            facade.StartIEEE11073Parser(new[] { "192.168.0.100", "9005" });
+
             //we wait for a valid messurement before we continue!
-            if(true)
+            while (!GotMesurement)
             {
-                prevStatus_State = Status_State;
-                Status_State = STATE.FINISHED;
+
             }
+
+            prevStatus_State = Status_State;
+            Status_State = STATE.FINISHED;
+            facade.NewIEEE11073Measurement -= NewMeasurementEvent;
+            GotMesurement = false;
+            mediaPlayer.Pause();
+            speak("Measurement done. Take the cuf off and relax");
+            Thread.Sleep(SpeakTimeDelay);
+            mediaPlayer.Play();
 
         }
         private void state_meassurement2_timerevent()
         {
+
+            var facade = new IEEE11073ParserFacade();
+            facade.NewIEEE11073Measurement += NewMeasurementEvent;
+            facade.StartIEEE11073Parser(new[] { "192.168.0.100", "9005" });
+
             //we wait for a valid messurement before we continue!
-            if (true)
+            while (!GotMesurement)
             {
-                prevStatus_State = Status_State;
-                Status_State = STATE.FINISHED;
+
             }
 
+            prevStatus_State = Status_State;
+            Status_State = STATE.FINISHED;
+            facade.NewIEEE11073Measurement -= NewMeasurementEvent;
+            GotMesurement = false;
+            mediaPlayer.Pause();
+            speak("Measurement done. Take the cuf off and relax");
+            Thread.Sleep(SpeakTimeDelay);
+            mediaPlayer.Play();
         }
         private void state_meassurement3_timerevent()
         {
+            var facade = new IEEE11073ParserFacade();
+            facade.NewIEEE11073Measurement += NewMeasurementEvent;
+            facade.StartIEEE11073Parser(new[] { "192.168.0.100", "9005" });
+
             //we wait for a valid messurement before we continue!
-            TimerStatusBox.Content = "GOOD WORK, YOU HAVE DONE GOOD WORK SON";
-            if (false)
+            while (!GotMesurement)
             {
-               // WE ARE NOW COMPLETLY DONE! SAVE DATA TO FILE OR DATABASE AND CLOSE THIS WINDOW
+
             }
+
+            prevStatus_State = Status_State;
+            Status_State = STATE.FINISHED;
+            facade.NewIEEE11073Measurement -= NewMeasurementEvent;
+            GotMesurement = false;
+            mediaPlayer.Stop();
+            //we wait for a valid messurement before we continue!
+            TimerStatusBox.Content = "COMPLETE";
+            speak("All Measurements complete. Have a wonderful day");
+
+            //TODO SAVE SOME SHIT HERE
+            
+            this.Close();
+
         }
         private void state_finished_timerevent()
         {
@@ -189,13 +246,18 @@ namespace APC
         {
            
             Console.WriteLine("Data: " + e.data.DeviceMeasurementDateTime + " " + e.data.Type + " " + e.data.Value + " " + e.data.Unit);
+
             BloodPresures.Add(new BloodMesurment()
             {
-                DataType = e.data.Type,
+                DataType = e.data.Type.ToString(),
                 DataValue = e.data.Value,
                 Timestamp = e.data.DeviceMeasurementDateTime,
                 Unit = e.data.Unit
+                
             });
+
+            GotMesurement = true;
+
         }
 
         private void speak(string Text)
@@ -209,7 +271,7 @@ namespace APC
     public class BloodMesurment
     {
         public DateTime Timestamp { get; set; }
-        public ParseResultType DataType { get; set; }
+        public String DataType { get; set; }
         public double DataValue { get; set; }
         public String Unit { get; set; }
     }
@@ -218,7 +280,4 @@ namespace APC
     public enum STATE{
         START, MEASSURING, MEASSUREMENT1, MEASSUREMENT2, MEASSUREMENT3,FINISHED
     }
-
-    
-
 }

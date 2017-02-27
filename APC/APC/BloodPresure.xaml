@@ -21,8 +21,10 @@
             <RowDefinition Height="83*"/>
             <RowDefinition Height="42*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="TimerStatusBox" Content="05:00" Grid.Column="1" HorizontalAlignment="Left" Margin="10.6,0,0,5.4" FontSize="72" FontFamily="Haettenschweiler" Width="406" Height="87" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+        <Label x:Name="TimerStatusBox" Content="05:00" Grid.Column="1" Margin="10.4,0,11.2,5.4" FontSize="72" FontFamily="Haettenschweiler" Height="87" VerticalAlignment="Bottom" Grid.ColumnSpan="3"/>
         <TextBlock x:Name="Speech"   Grid.Row="2" Text="" FontFamily="Tahoma" FontSize="20" Foreground="#FF880909" FontWeight="Bold" Margin="0.2,0,0.2,10.2" TextWrapping="Wrap" Grid.Column="2" Grid.RowSpan="2" Height="105" VerticalAlignment="Bottom" />
+        
+        <Image x:Name="InstructionImage" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
