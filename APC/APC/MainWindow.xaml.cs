@@ -40,6 +40,7 @@ namespace APC
             synthesizer.SetOutputToDefaultAudioDevice();
 
             Debug.WriteLine("Waiting for Sensor to be attached....");
+            //analog.waitForAttachment(10000);
             analog.open("phidgetsbc");
 
             GlobalVarOfThemAll.path = @"C:\Users\Public\BloodpreasureUser.txt";

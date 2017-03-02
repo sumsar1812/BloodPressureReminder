@@ -17,6 +17,7 @@ using IEEE11073Parser;
 using System.Windows.Threading;
 using System.Speech.Synthesis;
 using System.Threading;
+using WpfAnimatedGif;
 
 namespace APC
 {
@@ -26,7 +27,7 @@ namespace APC
     public partial class BloodPresure : Window
     {
         public SpeechRecognizer SP;
-        private static List<BloodMesurment> BloodPresures = new List<BloodMesurment>();
+        private static List<BloodPressureParseResult> BloodPresures = new List<BloodPressureParseResult>();
         private DispatcherTimer timer;
         private int TimerSeconds;
         public SpeechSynthesizer synthesizer;
@@ -41,7 +42,7 @@ namespace APC
         public BloodPresure()
         {
             InitializeComponent();
-            InstructionImage.Source = new BitmapImage(new Uri(,));
+            //InstructionImage.Source = new BitmapImage(new Uri(,));
             Status_State = STATE.START;
             synthesizer = new SpeechSynthesizer();
             synthesizer.SetOutputToDefaultAudioDevice();
@@ -117,6 +118,14 @@ namespace APC
                         TimerStatusBox.Content = "Messurment Time";
                         mediaPlayer.Pause();
                         speak("Put on thing, and perform first messurement");
+
+                        //pretty
+                        InstructionImageWater.Visibility = Visibility.Hidden;
+                        InstructionCuffOn.Visibility = Visibility.Visible;
+                        InstructionCuffOff.Visibility = Visibility.Hidden;
+                        // end pretty
+
+
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -229,7 +238,6 @@ namespace APC
         }
         private void state_finished_timerevent()
         {
-
             if (TimerSeconds <= 0)
             {
                 
@@ -239,23 +247,12 @@ namespace APC
             TimerSeconds -= 1;
             TimeSpan t = TimeSpan.FromSeconds(TimerSeconds);
             TimerStatusBox.Content = t.ToString(@"mm\:ss");
-             
         }
 
         static void NewMeasurementEvent(object sender, NewIEEE11073MeasurementArgs e)
-        {
-           
-            Console.WriteLine("Data: " + e.data.DeviceMeasurementDateTime + " " + e.data.Type + " " + e.data.Value + " " + e.data.Unit);
-
-            BloodPresures.Add(new BloodMesurment()
-            {
-                DataType = e.data.Type.ToString(),
-                DataValue = e.data.Value,
-                Timestamp = e.data.DeviceMeasurementDateTime,
-                Unit = e.data.Unit
-                
-            });
-
+        {           
+            //Console.WriteLine("Data: " + e.data.DeviceMeasurementDateTime + " " + e.data.Type + " " + e.data.Value + " " + e.data.Unit);
+            BloodPresures.Add((BloodPressureParseResult)e.data);
             GotMesurement = true;
 
         }
