@@ -136,9 +136,11 @@
     <Content Include="ieee11073\IEEE11073Parser.dll" />
     <Content Include="ieeediscover\ieee11073hub_discover.exe" />
     <Content Include="ieeediscover\Interop.Bonjour.dll" />
+    <Resource Include="IMAGE\takeoff.png" />
     <Resource Include="IMAGE\waterFall.gif" />
     <Resource Include="IMAGE\cuffOff.gif" />
     <Resource Include="IMAGE\cuffOn.gif" />
+    <Resource Include="IMAGE\Putown.png" />
     <Content Include="IMAGE\song.mp3" />
     <Resource Include="IMAGE\doctorsLikeMoney.png" />
   </ItemGroup>

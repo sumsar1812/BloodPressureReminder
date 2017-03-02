@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Speech.Recognition;
 using System.Text;
@@ -27,7 +28,7 @@ namespace APC
     public partial class BloodPresure : Window
     {
         public SpeechRecognizer SP;
-        private static List<BloodPressureParseResult> BloodPresures = new List<BloodPressureParseResult>();
+        private static List<BloodMesurment> BloodPresures = new List<BloodMesurment>();
         private DispatcherTimer timer;
         private int TimerSeconds;
         public SpeechSynthesizer synthesizer;
@@ -108,6 +109,41 @@ namespace APC
             TimeSpan t = TimeSpan.FromSeconds(TimerSeconds);
             TimerStatusBox.Content = t.ToString(@"mm\:ss");
         }
+
+        /// <summary>
+        /// Only one of them may be true or the world ends.... Love..
+        /// </summary>
+        /// <param name="on"></param>
+        /// <param name="off"></param>
+        /// <param name="water"></param>
+        public void ChangePrettyImage(bool on, bool off, bool water)
+        {
+
+            if (on)
+            {
+                //pretty
+                InstructionImageWater.Visibility = Visibility.Hidden;
+                InstructionCuffOn.Visibility = Visibility.Visible;
+                InstructionCuffOff.Visibility = Visibility.Hidden;
+                // end pretty
+            } else if (off)
+            {
+                //pretty
+                InstructionImageWater.Visibility = Visibility.Hidden;
+                InstructionCuffOn.Visibility = Visibility.Hidden;
+                InstructionCuffOff.Visibility = Visibility.Visible;
+                // end pretty  
+            } else if (water)
+            {
+                //pretty
+                InstructionImageWater.Visibility = Visibility.Visible;
+                InstructionCuffOn.Visibility = Visibility.Hidden;
+                InstructionCuffOff.Visibility = Visibility.Hidden;
+                // end pretty
+            }
+
+        }
+
         private void state_meassuring_timerevent()
         {
             TimerSeconds = 10;
@@ -117,15 +153,10 @@ namespace APC
                     {
                         TimerStatusBox.Content = "Messurment Time";
                         mediaPlayer.Pause();
+
+                        ChangePrettyImage(true,false,false);
+
                         speak("Put on thing, and perform first messurement");
-
-                        //pretty
-                        InstructionImageWater.Visibility = Visibility.Hidden;
-                        InstructionCuffOn.Visibility = Visibility.Visible;
-                        InstructionCuffOff.Visibility = Visibility.Hidden;
-                        // end pretty
-
-
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -136,6 +167,10 @@ namespace APC
                     {
                         TimerStatusBox.Content = "Messurment Time";
                         mediaPlayer.Pause();
+
+                        ChangePrettyImage(true, false, false);
+
+
                         speak("Put on thing, and perform second messurement");
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
@@ -147,6 +182,9 @@ namespace APC
                     {
                         TimerStatusBox.Content = "Messurment Time";
                         mediaPlayer.Pause();
+
+                        ChangePrettyImage(true, false, false);
+
                         speak("Put on thing, and perform third messurement");
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
@@ -155,11 +193,8 @@ namespace APC
                         break;
                     }
                 case STATE.MEASSUREMENT3:
-                    {
-                        
-
-
-                        this.Close();
+                    {                       
+                        Close();
                         break;
                     }
             }
@@ -178,6 +213,10 @@ namespace APC
 
             }
 
+            ChangePrettyImage(false, true, false);
+            Thread.Sleep(5000);
+            
+
             prevStatus_State = Status_State;
             Status_State = STATE.FINISHED;
             facade.NewIEEE11073Measurement -= NewMeasurementEvent;
@@ -185,6 +224,7 @@ namespace APC
             mediaPlayer.Pause();
             speak("Measurement done. Take the cuf off and relax");
             Thread.Sleep(SpeakTimeDelay);
+            ChangePrettyImage(false, false, true);
             mediaPlayer.Play();
 
         }
@@ -201,6 +241,10 @@ namespace APC
 
             }
 
+            ChangePrettyImage(false, true, false);
+            Thread.Sleep(5000);
+            
+
             prevStatus_State = Status_State;
             Status_State = STATE.FINISHED;
             facade.NewIEEE11073Measurement -= NewMeasurementEvent;
@@ -208,6 +252,7 @@ namespace APC
             mediaPlayer.Pause();
             speak("Measurement done. Take the cuf off and relax");
             Thread.Sleep(SpeakTimeDelay);
+            ChangePrettyImage(false, false, true);
             mediaPlayer.Play();
         }
         private void state_meassurement3_timerevent()
@@ -221,6 +266,10 @@ namespace APC
             {
 
             }
+
+            ChangePrettyImage(false, true, false);
+            Thread.Sleep(5000);
+            ChangePrettyImage(false, false, true);
 
             prevStatus_State = Status_State;
             Status_State = STATE.FINISHED;
@@ -250,18 +299,32 @@ namespace APC
         }
 
         static void NewMeasurementEvent(object sender, NewIEEE11073MeasurementArgs e)
-        {           
-            //Console.WriteLine("Data: " + e.data.DeviceMeasurementDateTime + " " + e.data.Type + " " + e.data.Value + " " + e.data.Unit);
-            BloodPresures.Add((BloodPressureParseResult)e.data);
-            GotMesurement = true;
+        {
 
+            if (e.data.Type == ParseResultType.BloodPressure)
+            {
+                var a = (BloodPressureParseResult)e.data;
+
+                Debug.WriteLine(a.DiastolicValue);
+                Debug.WriteLine(a.MAFValue);
+                Debug.WriteLine(a.SystolicValue);
+
+                BloodMesurment bm = new BloodMesurment();
+                bm.DiastolicValue = a.DiastolicValue;
+                bm.MAFValue = a.MAFValue;
+                bm.SystolicValue = a.SystolicValue;
+                bm.DataType = e.data.Type.ToString();
+                bm.Timestamp = e.data.DeviceMeasurementDateTime;
+
+                BloodPresures.Add(bm);
+                GotMesurement = true;
+            }
         }
 
         private void speak(string Text)
         {
             synthesizer.SpeakAsync(Text);
             Speech.Text = Text;
-
         }
     }
 
@@ -271,6 +334,10 @@ namespace APC
         public String DataType { get; set; }
         public double DataValue { get; set; }
         public String Unit { get; set; }
+        public double DiastolicValue { get; set; }
+        public double MAFValue { get; set; }
+        public double SystolicValue { get; set; }
+
     }
 
 

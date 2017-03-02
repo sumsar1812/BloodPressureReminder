@@ -26,8 +26,8 @@
         <TextBlock x:Name="Speech"   Grid.Row="2" Text="" FontFamily="Tahoma" FontSize="20" Foreground="#FF880909" FontWeight="Bold" Margin="0.2,0,0.2,10.2" TextWrapping="Wrap" Grid.Column="2" Grid.RowSpan="2" Height="105" VerticalAlignment="Bottom" />
         
         <Image gif:ImageBehavior.AnimatedSource="IMAGE/waterFall.gif" x:Name="InstructionImageWater" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
-        <Image gif:ImageBehavior.AnimatedSource="IMAGE/cuffOn.gif" x:Name="InstructionCuffOn" Visibility="Hidden" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
-        <Image gif:ImageBehavior.AnimatedSource="IMAGE/cuffOff.gif" x:Name="InstructionCuffOff" Visibility="Hidden" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
+        <Image gif:ImageBehavior.AnimatedSource="IMAGE/Putown.png" x:Name="InstructionCuffOn" Visibility="Hidden" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
+        <Image gif:ImageBehavior.AnimatedSource="IMAGE/takeoff.png" x:Name="InstructionCuffOff" Visibility="Hidden" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
