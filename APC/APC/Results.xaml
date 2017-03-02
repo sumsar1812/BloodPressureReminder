@@ -1,0 +1,20 @@
+﻿<Window x:Class="APC.Results"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:APC"
+        mc:Ignorable="d"
+        Title="Results" Height="300" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label x:Name="label" Content="Avg blood pressure is" HorizontalAlignment="Right" Margin="0,34,148.6,0" VerticalAlignment="Top"/>
+
+        <Label x:Name="label2" Content="Have a wonerful day" HorizontalAlignment="Left" Margin="26,171,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button" Content="OK" Margin="26,0,26.6,24.4" Height="32" VerticalAlignment="Bottom" Click="button_Click"/>
+        <Label x:Name="SYS" Content="Label" HorizontalAlignment="Right" Margin="0,80,202.6,0" VerticalAlignment="Top" Height="39" Width="65" FontSize="22" FontWeight="Bold"/>
+        <Label x:Name="DIA" Content="Label" HorizontalAlignment="Right" Margin="0,119,202.6,0" VerticalAlignment="Top" Height="39" Width="65" FontSize="22" FontWeight="Bold"/>
+        <Label x:Name="label1" Content="SYS.&#xD;&#xA;mmHg" HorizontalAlignment="Left" Margin="97,80,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy" Content="DIA.&#xA;mmHg" HorizontalAlignment="Left" Margin="97,116,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

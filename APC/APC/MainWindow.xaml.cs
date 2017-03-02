@@ -31,6 +31,8 @@ namespace APC
         public SpeechSynthesizer synthesizer;
         private DispatcherTimer timer = new DispatcherTimer();
         private Boolean warning;
+        private Boolean cameHome;
+        private int homeTime;
         public MainWindow()
         {
             InitializeComponent();
@@ -70,6 +72,25 @@ namespace APC
             tid.Text = TimeRN.ToString("HH:mm");
             dato.Text = TimeRN.ToString("dddd") + " d." + TimeRN.ToString("dd") + "/" + TimeRN.ToString("MM");
             CheckForEvents(TimeRN);
+
+            if (cameHome)
+            {
+                if (homeTime == 0)
+                {
+                    speak("Please enter room and take measurement");
+                    while (analog.sensors[1].Value < 100)
+                    {
+                        //Do Nothing   
+                    }
+                    EveningEvent();
+                    cameHome = false;
+                }
+                else
+                {
+                    homeTime -= 1;
+                }
+                
+            }
         }
 
         private void loadUsers(string path)
@@ -88,15 +109,22 @@ namespace APC
                     MorningEvent();
                     break;
                     }
-                case "18:00:00":
+                case "16:00:00":
                     {
-                        EveningEvent();
+                        while (analog.sensors[2].Value < 100)
+                        {
+                         //Do Nothing   
+                        }
+                        Debug.WriteLine("Target Entered the building!");
+                        homeTime = 900;
+                        cameHome = true;
                         break;
                     }
                 case "00:00:00":
                     {
                         EasterEgg.Visibility = Visibility.Visible;
                         break;
+                        cameHome = false;
                     }
                 case "00:01:00":
                 {
@@ -132,11 +160,6 @@ namespace APC
         }
         private void EveningEvent()
         {
-
-
-
-
-
             while (analog.sensors[0].Value < 10)
             {
                 Debug.WriteLine("Please press");

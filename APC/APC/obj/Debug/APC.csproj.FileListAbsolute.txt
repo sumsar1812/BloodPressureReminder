@@ -24,3 +24,5 @@ D:\github\BloodPressureReminder\APC\APC\bin\Debug\Phidget21.NET.dll
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\Phidget21.NET.xml
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\WpfAnimatedGif.dll
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\WpfAnimatedGif.xml
+D:\github\BloodPressureReminder\APC\APC\obj\Debug\Results.g.cs
+D:\github\BloodPressureReminder\APC\APC\obj\Debug\Results.baml

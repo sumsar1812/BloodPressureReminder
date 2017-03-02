@@ -21,7 +21,7 @@
         <TextBlock x:Name="tid"  Cursor="Arrow" Background="Black" Text="00:00" TextAlignment="Center"   Foreground="AntiqueWhite"  FontSize="200" FontFamily="Haettenschweiler" Grid.ColumnSpan="2" Margin="10,0.143,7.143,0" Grid.Row="1"/>
         <TextBlock x:Name="dato"  Cursor="Arrow" Background="Black" Text="Onsdag" TextAlignment="Center"   Foreground="AntiqueWhite"  FontSize="30" FontFamily="Haettenschweiler" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,10,6.8,0" Height="87"/>
         <Label x:Name="EasterEgg" Content="( ͡° ͜ʖ ͡° )" Grid.Column="1" HorizontalAlignment="Left" Margin="196.2,67,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="22" Visibility="Hidden"/>
-        <Button x:Name="button" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="85.2,54,0,0" Grid.Row="2" VerticalAlignment="Top" Width="221" Click="button_Click"/>
+        <Button x:Name="button" Content="TEST M" Grid.Column="1" Margin="0,0,9.8,10.4" Grid.Row="2" Click="button_Click" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="40" Height="17" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>

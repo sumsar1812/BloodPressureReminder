@@ -35,7 +35,7 @@ namespace APC
         private STATE Status_State;
         private STATE prevStatus_State;
         private MediaPlayer mediaPlayer;
-        private int SpeakTimeDelay = 6000;
+        private int SpeakTimeDelay = 5000;
 
         private static bool GotMesurement = false;
         string[] settings = new string[] { "192.168.0.100", "9005" };
@@ -51,7 +51,7 @@ namespace APC
             mediaPlayer.Open(new Uri("song.mp3",UriKind.Relative));
             timer = new DispatcherTimer();
 
-            TimerSeconds = 20;
+            TimerSeconds = 300;
             timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Tick += OnUpdateTimerTick;
             timer.Start();
@@ -146,7 +146,7 @@ namespace APC
 
         private void state_meassuring_timerevent()
         {
-            TimerSeconds = 10;
+            TimerSeconds = 60;
             switch(prevStatus_State)
             {
                 case STATE.START:
@@ -280,8 +280,12 @@ namespace APC
             TimerStatusBox.Content = "COMPLETE";
             speak("All Measurements complete. Have a wonderful day");
 
-            //TODO SAVE SOME SHIT HERE
-            
+            GlobalVarOfThemAll.DIA = (int) ((BloodPresures[1].DiastolicValue+ BloodPresures[2].DiastolicValue)/2);
+            GlobalVarOfThemAll.SYS = (int)((BloodPresures[1].SystolicValue + BloodPresures[2].SystolicValue) / 2);
+            GlobalVarOfThemAll.MAF = (int)((BloodPresures[1].MAFValue + BloodPresures[2].MAFValue) / 2);
+
+            Results ResultWindow = new Results();
+            ResultWindow.ShowDialog();
             this.Close();
 
         }
