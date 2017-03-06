@@ -147,12 +147,12 @@ namespace APC
             {
                 case STATE.START:
                     {
-                        TimerStatusBox.Content = "Messurment Time";
+                        TimerStatusBox.Content = "measurement Time";
                         mediaPlayer.Pause();
 
                         ChangePrettyImage(true,false,false);
 
-                        speak("Put on thing, and perform first messurement");
+                        speak("Put on cuff, and perform first measurement");
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -161,13 +161,13 @@ namespace APC
                     }
                 case STATE.MEASSUREMENT1:
                     {
-                        TimerStatusBox.Content = "Messurment Time";
+                        TimerStatusBox.Content = "measurement Time";
                         mediaPlayer.Pause();
 
                         ChangePrettyImage(true, false, false);
 
 
-                        speak("Put on thing, and perform second messurement");
+                        speak("Put on thing, and perform second measurement");
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -176,12 +176,12 @@ namespace APC
                     }
                 case STATE.MEASSUREMENT2:
                     {
-                        TimerStatusBox.Content = "Messurment Time";
+                        TimerStatusBox.Content = "measurement Time";
                         mediaPlayer.Pause();
 
                         ChangePrettyImage(true, false, false);
 
-                        speak("Put on thing, and perform third messurement");
+                        speak("Put on thing, and perform third measurement");
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -218,7 +218,7 @@ namespace APC
             facade.NewIEEE11073Measurement -= NewMeasurementEvent;
             GotMesurement = false;
             mediaPlayer.Pause();
-            speak("Measurement done. Take the cuf off and relax");
+            speak("measurement done. Take the cuf off and relax");
             Thread.Sleep(SpeakTimeDelay);
             ChangePrettyImage(false, false, true);
             mediaPlayer.Play();
@@ -246,7 +246,7 @@ namespace APC
             facade.NewIEEE11073Measurement -= NewMeasurementEvent;
             GotMesurement = false;
             mediaPlayer.Pause();
-            speak("Measurement done. Take the cuf off and relax");
+            speak("measurement done. Take the cuf off and relax");
             Thread.Sleep(SpeakTimeDelay);
             ChangePrettyImage(false, false, true);
             mediaPlayer.Play();
