@@ -43,7 +43,6 @@ namespace APC
         public BloodPresure()
         {
             InitializeComponent();
-            //InstructionImage.Source = new BitmapImage(new Uri(,));
             Status_State = STATE.START;
             synthesizer = new SpeechSynthesizer();
             synthesizer.SetOutputToDefaultAudioDevice();
@@ -62,8 +61,6 @@ namespace APC
         {
             switch (Status_State)
             {
-
-
                 case STATE.START:
                     {
                     state_start_timerevent();
@@ -118,7 +115,6 @@ namespace APC
         /// <param name="water"></param>
         public void ChangePrettyImage(bool on, bool off, bool water)
         {
-
             if (on)
             {
                 //pretty

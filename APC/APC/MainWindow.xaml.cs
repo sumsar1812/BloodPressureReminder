@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -27,6 +28,7 @@ namespace APC
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MediaPlayer mediaPlayer;
         InterfaceKit analog;
         public SpeechSynthesizer synthesizer;
         private DispatcherTimer timer = new DispatcherTimer();
@@ -36,6 +38,10 @@ namespace APC
         public MainWindow()
         {
             InitializeComponent();
+
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new Uri("wake.mp3", UriKind.Relative));
+
             warning = false;
             analog = new InterfaceKit();
             synthesizer = new SpeechSynthesizer();
@@ -105,9 +111,14 @@ namespace APC
             switch (timeRN)
             {
                 case "06:00:00":
-                    { 
-                    MorningEvent();
-                    break;
+                    {
+                        speak("Goodmorning, remember to measure your blood pressure");
+
+                        Thread.Sleep(5000);
+                        mediaPlayer.Play();                        
+
+                        MorningEvent();
+                        break;
                     }
                 case "16:00:00":
                     {
@@ -154,7 +165,7 @@ namespace APC
                     warning = true;
                 }
             }
-
+            mediaPlayer.Stop();
                 BloodPresure BPWindow = new BloodPresure();
                 BPWindow.ShowDialog();               
         }
