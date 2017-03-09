@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Speech.Recognition;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using IEEE11073Parser;
 using System.Windows.Threading;
 using System.Speech.Synthesis;
 using System.Threading;
-using WpfAnimatedGif;
+using Phidgets;
 
 namespace APC
 {
@@ -36,6 +26,8 @@ namespace APC
         private STATE prevStatus_State;
         private MediaPlayer mediaPlayer;
         private int SpeakTimeDelay = 5000;
+        private InterfaceKit analog;
+
 
         private static bool GotMesurement = false;
         string[] settings = new string[] { "192.168.0.100", "9005" };
@@ -43,12 +35,16 @@ namespace APC
         public BloodPresure()
         {
             InitializeComponent();
+
+            analog = new InterfaceKit();
+
             Status_State = STATE.START;
             synthesizer = new SpeechSynthesizer();
             synthesizer.SetOutputToDefaultAudioDevice();
             mediaPlayer = new MediaPlayer();
             mediaPlayer.Open(new Uri("song.mp3",UriKind.Relative));
             timer = new DispatcherTimer();
+            analog.open("phidgetsbc");
 
             TimerSeconds = 300;
             timer.Interval = TimeSpan.FromMilliseconds(1000);
@@ -73,6 +69,8 @@ namespace APC
                     }
                 case STATE.MEASSUREMENT1:
                     {
+
+
                         state_meassurement1_timerevent();
                         break;
                     }
@@ -117,25 +115,41 @@ namespace APC
         {
             if (on)
             {
+
+                Dispatcher.Invoke(() => { 
+
                 //pretty
                 InstructionImageWater.Visibility = Visibility.Hidden;
                 InstructionCuffOn.Visibility = Visibility.Visible;
                 InstructionCuffOff.Visibility = Visibility.Hidden;
-                // end pretty
+                    // end pretty
+                });
+
             } else if (off)
             {
-                //pretty
-                InstructionImageWater.Visibility = Visibility.Hidden;
+
+                Dispatcher.Invoke(() => {
+                    //pretty
+                    InstructionImageWater.Visibility = Visibility.Hidden;
                 InstructionCuffOn.Visibility = Visibility.Hidden;
                 InstructionCuffOff.Visibility = Visibility.Visible;
-                // end pretty  
+                    // end pretty
+                });
+
+
             } else if (water)
             {
-                //pretty
-                InstructionImageWater.Visibility = Visibility.Visible;
-                InstructionCuffOn.Visibility = Visibility.Hidden;
-                InstructionCuffOff.Visibility = Visibility.Hidden;
-                // end pretty
+
+                Dispatcher.Invoke(() =>
+                {
+
+                    //pretty
+                    InstructionImageWater.Visibility = Visibility.Visible;
+                    InstructionCuffOn.Visibility = Visibility.Hidden;
+                    InstructionCuffOff.Visibility = Visibility.Hidden;
+                    // end pretty
+
+                });
             }
 
         }
@@ -147,12 +161,21 @@ namespace APC
             {
                 case STATE.START:
                     {
-                        TimerStatusBox.Content = "measurement Time";
                         mediaPlayer.Pause();
+                        ChangePrettyImage(true, false, false);
+                        TimerStatusBox.Content = "measurement Time";
 
-                        ChangePrettyImage(true,false,false);
+                        var thread = new Thread(() => ChangePrettyImage(true,false,false));
+                        thread.Start();
 
-                        speak("Put on cuff, and perform first measurement");
+                        Application.Current.Dispatcher.Invoke(DispatcherPriority.ContextIdle, new Action(() => { }));
+
+
+                        Thread.Sleep(5000);
+                        speak("Put on cuff, and perform first measurement");                    
+
+                        CheckFlexiSensor();
+
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -167,7 +190,12 @@ namespace APC
                         ChangePrettyImage(true, false, false);
 
 
-                        speak("Put on thing, and perform second measurement");
+                        speak("Put on cuff, and perform second measurement");
+
+                        CheckFlexiSensor();
+
+
+                        Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -181,7 +209,11 @@ namespace APC
 
                         ChangePrettyImage(true, false, false);
 
-                        speak("Put on thing, and perform third measurement");
+                        speak("Put on cuff, and perform third measurement");
+
+                        CheckFlexiSensor();
+
+                        Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
                         Thread.Sleep(SpeakTimeDelay);
                         mediaPlayer.Play();
                         prevStatus_State = Status_State;
@@ -222,7 +254,6 @@ namespace APC
             Thread.Sleep(SpeakTimeDelay);
             ChangePrettyImage(false, false, true);
             mediaPlayer.Play();
-
         }
         private void state_meassurement2_timerevent()
         {
@@ -274,7 +305,7 @@ namespace APC
             mediaPlayer.Stop();
             //we wait for a valid messurement before we continue!
             TimerStatusBox.Content = "COMPLETE";
-            speak("All Measurements complete. Have a wonderful day");
+            speak("All Measurements complete. Good job");
 
             GlobalVarOfThemAll.DIA = (int) ((BloodPresures[1].DiastolicValue+ BloodPresures[2].DiastolicValue)/2);
             GlobalVarOfThemAll.SYS = (int)((BloodPresures[1].SystolicValue + BloodPresures[2].SystolicValue) / 2);
@@ -288,8 +319,7 @@ namespace APC
         private void state_finished_timerevent()
         {
             if (TimerSeconds <= 0)
-            {
-                
+            {                
                 Status_State = STATE.MEASSURING;
                 return;
             }
@@ -326,6 +356,15 @@ namespace APC
             synthesizer.SpeakAsync(Text);
             Speech.Text = Text;
         }
+
+        public void CheckFlexiSensor()
+        {
+            while (analog.sensors[0].Value < 10)
+            {
+                Debug.WriteLine("Please press");
+                Debug.WriteLine(analog.sensors[1].Value);
+            }
+        }
     }
 
     public class BloodMesurment
@@ -339,7 +378,6 @@ namespace APC
         public double SystolicValue { get; set; }
 
     }
-
 
     public enum STATE{
         START, MEASSURING, MEASSUREMENT1, MEASSUREMENT2, MEASSUREMENT3,FINISHED

@@ -18,7 +18,6 @@ D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.Properties.Resources.resou
 D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.csproj.GenerateResource.Cache
 D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.exe
 D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.pdb
-D:\github\BloodPressureReminder\APC\APC\obj\Debug\APC.csprojResolveAssemblyReference.cache
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\IEEE11073Parser.dll
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\Phidget21.NET.dll
 D:\github\BloodPressureReminder\APC\APC\bin\Debug\Phidget21.NET.xml

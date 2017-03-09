@@ -120,7 +120,7 @@ namespace APC
                         MorningEvent();
                         break;
                     }
-                case "16:00:00":
+                case "18:00:00":
                     {
                         while (analog.sensors[2].Value < 100)
                         {
@@ -151,20 +151,20 @@ namespace APC
 
         private void MorningEvent()
         {            
-            while (analog.sensors[0].Value < 10)
-            {
-                Debug.WriteLine("Please press");
-                Debug.WriteLine(analog.sensors[1].Value);
+            //while (analog.sensors[0].Value < 10)
+            //{
+            //    Debug.WriteLine("Please press");
+            //    Debug.WriteLine(analog.sensors[1].Value);
 
-                if (analog.sensors[1].Value < 100)
-                {
-                    if (!warning)
-                    { 
-                        speak(Name + ", you forgot to meassure your bloodpressure! please go back and put on the cuff");
-                    }
-                    warning = true;
-                }
-            }
+            //    if (analog.sensors[1].Value < 100)
+            //    {
+            //        if (!warning)
+            //        { 
+            //            speak(Name + ", you forgot to meassure your bloodpressure! please go back and put on the cuff");
+            //        }
+            //        warning = true;
+            //    }
+            //}
             mediaPlayer.Stop();
                 BloodPresure BPWindow = new BloodPresure();
                 BPWindow.ShowDialog();               
@@ -180,7 +180,7 @@ namespace APC
                 {
                     if (!warning)
                     {
-                        speak(Name + ", you forgot to meassure your bloodpressure! please go back and put on the cuff");
+                        speak(Name + " It is time to measure your blood pressure. Please go to the bedroom");
                     }
                     warning = true;
                 }
